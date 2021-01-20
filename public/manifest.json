@@ -1,0 +1,16 @@
+{
+  "short_name": "yf 1.0",
+  "name": "ACOM/AGOV Yield Farm",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "backgroundImage": "linear-gradient(135deg,#005ec7,#a200ff)"
+}
