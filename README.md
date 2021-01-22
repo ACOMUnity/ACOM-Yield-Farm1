@@ -12,7 +12,7 @@ First ensure you have all of the below programs installed:
 - Install and start [Ganache](https://www.trufflesuite.com/ganache)
 - Install and setup [MetaMask](https://metamask.io/)
 
-- `git clone https://github.com/KLYE-Dev/ACOM-Yield-Farm.git`
+- `git clone https://github.com/ACOMUnity/ACOM-Yield-Farm.git`
 - `cd ACOM-Yield-Farm`
 - `npm install` (within the ACOM-Yield-Farm folder created from above)
 
