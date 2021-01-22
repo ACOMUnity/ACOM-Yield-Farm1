@@ -22,7 +22,7 @@ contract TokenFarm {
 
   constructor(AgovToken _agovToken) {
     agovToken = _agovToken;
-    acomToken = IERC20(0x643fd19acbb31e5247ef652e15368f744e2a265a);
+    acomToken = IERC20(0x22197b276E7d55673Bd19FE1a65fe412B584A344)
     owner = msg.sender;
   }
 
