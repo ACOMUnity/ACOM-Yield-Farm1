@@ -22,14 +22,18 @@ contract TokenFarm is Pausable, Ownable {
 
     constructor() public {
         agovToken = new AgovToken();
-        acomToken = IERC20(0x643fd19acbb31e5247ef652e15368f744e2a265a);
+        acomToken = IERC20(0x643fd19acBb31E5247EF652e15368f744e2a265a);
+    }
+    
+    function setAcomToken(address token) public onlyOwner {
+        acomToken = IERC20(token);
     }
 
     function getStakeholder() public view returns (address[] memory) {
         return stakeholder;
     }
 
-    function stakeTokens(uint _amount) public {
+    function stakeTokens(uint _amount) public whenNotPaused {
         require(_amount > 0, "ERROR: You must stake more than 0 ACOM.");
         acomToken.transferFrom(msg.sender, address(this), _amount);
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
