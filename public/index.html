@@ -138,7 +138,10 @@
           await fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
           .then(response => response.text())
           .then(contents => {console.log(JSON.parse(contents)); stuff = JSON.parse(contents); wooo = document.getElementById('totalEthPrice'); wooo.innerText = "$" + stuff.last;})
-          .catch(e => console.log("Can’t access " + url + " response. Blocked by browser?"))
+          .catch(e => {
+            console.log("Can’t access " + url + " response. Blocked by browser?")
+            console.error(e);
+          })
     }
     componentDidMount();
   </script>
