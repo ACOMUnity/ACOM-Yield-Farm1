@@ -25,7 +25,7 @@ class App extends Component {
 
     const acomToken = await new web3.eth.Contract(
       abiArray,
-      '0x22197b276E7d55673Bd19FE1a65fe412B584A344'
+      '0x643fd19acbb31e5247ef652e15368f744e2a265a'
     );
 
     const networkId = await web3.eth.net.getId();
