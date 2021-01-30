@@ -6,6 +6,7 @@ import Web3 from "web3";
 //import AcomToken from "../abis/AcomToken.json";
 import AgovToken from "../abis/AgovToken.json";
 import TokenFarm from "../abis/TokenFarm.json";
+import * as net from "net";
 //import AbiArray from "../testcontracts/AcomArray.json"
 
 var abiArray = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"sender","type":"address"},{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"value","type":"uint256"}],"name":"burn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"owner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"name","type":"string"},{"name":"symbol","type":"string"},{"name":"decimals","type":"uint8"},{"name":"totalSupply","type":"uint256"},{"name":"feeReceiver","type":"address"},{"name":"tokenOwnerAddress","type":"address"}],"payable":true,"stateMutability":"payable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"}];
@@ -25,28 +26,32 @@ class App extends Component {
 
     const acomToken = await new web3.eth.Contract(
       abiArray,
-      '0x643fd19acbb31e5247ef652e15368f744e2a265a'
+      '0x643fd19acBb31E5247EF652e15368f744e2a265a'
     );
 
     const networkId = await web3.eth.net.getId();
 
     if(typeof acomToken !== undefined) {
+
       this.setState({ acomToken });
+      window.acomToken = acomToken;
       let acomTokenBalance = await acomToken.methods
         .balanceOf(this.state.account)
         .call();
       this.setState({
         acomTokenBalance: acomTokenBalance.toString(),
       });
+
     }
 
-    const agovTokenData = AgovToken.networks[networkId];
+    const agovTokenData = true;
     if (agovTokenData) {
       const agovToken = new web3.eth.Contract(
         AgovToken.abi,
-        agovTokenData.address
+          "0x8Db94b765d76474ceFF19072f663fCf11bcbBA46"
       );
       this.setState({ agovToken });
+      window.agovToken = agovToken;
       let agovTokenBalance = await agovToken.methods
         .balanceOf(this.state.account)
         .call();
@@ -58,13 +63,14 @@ class App extends Component {
     }
 
     // load Token Farm
-    const tokenFarmData = TokenFarm.networks[networkId];
+    const tokenFarmData = true;
     if (tokenFarmData) {
       const tokenFarm = new web3.eth.Contract(
         TokenFarm.abi,
-        tokenFarmData.address
+          "0x9f82FAcd0De79b44aF2E5A18f105f6285CE6a681"
       );
       this.setState({ tokenFarm });
+      window.tokenFarm = tokenFarm;
       let stakingBalance = await tokenFarm.methods
         .stakingBalance(this.state.account)
         .call();
@@ -93,17 +99,31 @@ class App extends Component {
 
   stakeTokens = (amount) => {
     this.setState({ loading: true });
-    this.state.acomToken.methods
-      .approve(this.state.tokenFarm._address, amount)
-      .send({ from: this.state.account })
-      .on("transactionHash", () => {
+
+    this.state.acomToken.methods.allowance("0x07b37E682B100208C6288F2F121298A4D60D103c", "0x9f82facd0de79b44af2e5a18f105f6285ce6a681").call().then(allowance => {
+      allowance = window.web3.utils.fromWei(allowance);
+
+      if (allowance < window.web3.utils.fromWei(amount)) {
+        this.state.acomToken.methods
+            .approve(this.state.tokenFarm._address, amount)
+            .send({ from: this.state.account })
+            .on("transactionHash", () => {
+              this.state.tokenFarm.methods
+                  .stakeTokens(amount)
+                  .send({ from: this.state.account })
+                  .on("transactionHash", () => {
+                    this.setState({ loading: false });
+                  });
+            });
+      } else {
         this.state.tokenFarm.methods
-          .stakeTokens(amount)
-          .send({ from: this.state.account })
-          .on("transactionHash", () => {
-            this.setState({ loading: false });
-          });
-      });
+            .stakeTokens(amount)
+            .send({ from: this.state.account })
+            .on("transactionHash", () => {
+              this.setState({ loading: false });
+            });
+      }
+    })
   };
 
   unstakeTokens = (amount) => {
