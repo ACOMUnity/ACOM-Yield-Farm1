@@ -5,9 +5,10 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20Capped.sol";
 
 contract AgovToken is ERC20, ERC20Capped {
+
     constructor()
         ERC20('ADSactly Governance Coin', 'AGOV')
-        ERC20Capped(1000000000 * (10**uint256(18)))
+        ERC20Capped(1000000000 * (10**uint256(18))) public
     {
         _mint(msg.sender, 1000000 * (10**uint256(decimals())));
     }
