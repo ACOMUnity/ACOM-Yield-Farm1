@@ -2,79 +2,81 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <style type="text/css">
-    body {
-      background-color: #f8f8ff !important;
-      margin-left: auto;
-      margin-right: auto;
-      }
-
-    nav {
-      text-transform: uppercase;
-      background-color: transparent;
-      background-image: linear-gradient(135deg,#005ec7,#a200ff);
-    }
-    #content {
-      margin: auto;
-    }
-    #account {
-      border: 1px solid gold;
-      padding-left:5px;
-      padding-right:5px;
-      font-weight:900;
-      background: #FFFFFF;
-      color: black;
-      font-size: 1em;
-      border-radius: 15px;
-    }
-    #theBigShow, .theBigShow {
-      font-size:1vw;
-      align-content:center;
-      text-align: center;
-      width:100%;
-    }
-    button {
-      font-size: 16px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      background-color: transparent;
-      background-image: linear-gradient(135deg,#005ec7,#a200ff);
-      padding: 18px 30px;
-      border-radius: 5px !important;
-      box-shadow: 0px 5px 35px 0px rgba(0,94,199,0.12);
-      font-weight:900;
-    }
-    .addressBold, .lowerBold {
-      font-weight:900;
-      color: #FFFFFF !important;
-    }
-    .sextext {
-        text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, rgb(69, 69, 69) 0px 1px 0px, rgb(46, 46, 46) 0px 2px 1px;
-        color: white;
-    }
-    .purptext {
-        text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, rgb(69, 69, 69) 0px 1px 0px, rgb(46, 46, 46) 0px 2px 1px, #a200ff 0px 0px 5px;
-        color: white;
-    }
-    .titleText {
-      width:69vw;
-      margin-right: auto;
-      margin-left: auto;
-    }
-    .underTitle {
-      font-weight:700;
-    }
-    </style>
+    <meta name="description" content="Web site created using create-react-app" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
+    <style type="text/css">
+      body {
+        background-color: #f8f8ff !important;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      nav {
+        text-transform: uppercase;
+        background-color: transparent;
+        background-image: linear-gradient(135deg, #005ec7, #a200ff);
+      }
+      #content {
+        margin: auto;
+      }
+      #account {
+        border: 1px solid gold;
+        padding-left: 5px;
+        padding-right: 5px;
+        font-weight: 900;
+        background: #ffffff;
+        color: black;
+        font-size: 1em;
+        border-radius: 15px;
+      }
+      #theBigShow,
+      .theBigShow {
+        font-size: 1vw;
+        align-content: center;
+        text-align: center;
+        width: 100%;
+      }
+      button {
+        font-size: 16px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        background-color: transparent;
+        background-image: linear-gradient(135deg, #005ec7, #a200ff);
+        padding: 18px 30px;
+        border-radius: 5px !important;
+        box-shadow: 0px 5px 35px 0px rgba(0, 94, 199, 0.12);
+        font-weight: 900;
+      }
+      .addressBold,
+      .lowerBold {
+        font-weight: 900;
+        color: #ffffff !important;
+      }
+      .sextext {
+        text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, rgb(69, 69, 69) 0px 1px 0px,
+          rgb(46, 46, 46) 0px 2px 1px;
+        color: white;
+      }
+      .purptext {
+        text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000, rgb(69, 69, 69) 0px 1px 0px,
+          rgb(46, 46, 46) 0px 2px 1px, #a200ff 0px 0px 5px;
+        color: white;
+      }
+      .titleText {
+        width: 69vw;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      .underTitle {
+        font-weight: 700;
+      }
+    </style>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -92,57 +94,65 @@
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
+
       You can add webfonts, meta tags, or analytics to this file.
       The build step will place the bundled scripts into the <body> tag.
+
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
   <script type="text/javascript">
-
-    var estimate = async(theBalance) => {
-    var updateamount = window.document.getElementById('fuckingStakingBalance');
-    updateamount = updateamount.innerText;
-    var placeguess = window.document.getElementById('guesstimate');
-    var dailypay = 0;
-     var priceUpdate = () => {
-      if (typeof theBalance !== undefined){
-        dailypay = parseFloat(updateamount * 0.00136986301);
-        console.log(dailypay);
-      } else {
-        dailypay = parseFloat(updateamount * 0.00136986301);
-        console.log(dailypay);
+    var estimate = async (theBalance) => {
+      var updateamount = window.document.getElementById('fuckingStakingBalance')
+      updateamount = updateamount.innerText
+      var placeguess = window.document.getElementById('guesstimate')
+      var dailypay = 0
+      var priceUpdate = () => {
+        if (typeof theBalance !== undefined) {
+          dailypay = parseFloat(updateamount * 0.00136986301)
+          console.log(dailypay)
+        } else {
+          dailypay = parseFloat(updateamount * 0.00136986301)
+          console.log(dailypay)
+        }
+        if (dailypay > 0) {
+          placeguess.innerText = `Earning Roughly ${dailypay} AGOV a Day Staking!`
+          return (placeguess.value = `Earning Roughly ${dailypay} AGOV a Day Staking!`)
+        } else {
+          placeguess.innerText = `Not Earning AGOV! Please Stake Some mACOM!`
+          return (placeguess.value = `Not Earning AGOV! Please Stake Some mACOM!`)
+        }
       }
-      if(dailypay > 0){
-        placeguess.innerText = `Earning Roughly ${dailypay} AGOV a Day Staking!`;
-        return placeguess.value = `Earning Roughly ${dailypay} AGOV a Day Staking!`;
-      } else {
-        placeguess.innerText = `Not Earning AGOV! Please Stake Some mACOM!`;
-        return placeguess.value = `Not Earning AGOV! Please Stake Some mACOM!`;
-      }
+      await priceUpdate()
     }
-    await priceUpdate();
-  }
 
-  setTimeout(function(){
-    estimate();
-  }, 5000);
+    setTimeout(function () {
+      estimate()
+    }, 5000)
 
-      // GET request using fetch with error handling
-      var componentDidMount = async() => {
-          // GET request using fetch with set headers
-          var stuff;
-          var wooo;
-          const proxyurl = "https://cors-anywhere.herokuapp.com/";
-          const url = "https://www.unicornx.exchange/api/spot/v3/instruments/ETH-USDT/ticker/"; // site that doesn’t send Access-Control-*
-          await fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-          .then(response => response.text())
-          .then(contents => {console.log(JSON.parse(contents)); stuff = JSON.parse(contents); wooo = document.getElementById('totalEthPrice'); wooo.innerText = "$" + stuff.last;})
-          .catch(e => {
-            console.log("Can’t access " + url + " response. Blocked by browser?")
-            console.error(e);
-          })
+    // GET request using fetch with error handling
+    var componentDidMount = async () => {
+      // GET request using fetch with set headers
+      var stuff
+      var wooo
+      const proxyurl = 'https://cors-anywhere.herokuapp.com/'
+      const url = 'https://www.unicornx.exchange/api/spot/v3/instruments/ETH-USDT/ticker/' // site that doesn’t send Access-Control-*
+      console.log(proxyurl + url)
+      await fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+        .then((response) => response.text())
+        .then((contents) => {
+          console.log(contents)
+          console.log(JSON.parse(contents))
+          stuff = JSON.parse(contents)
+          wooo = document.getElementById('totalEthPrice')
+          wooo.innerText = '$' + stuff.last
+        })
+        .catch((e) => {
+          console.log('Can’t access ' + url + ' response. Blocked by browser?')
+          console.error(e)
+        })
     }
-    componentDidMount();
+    componentDidMount()
   </script>
 </html>
