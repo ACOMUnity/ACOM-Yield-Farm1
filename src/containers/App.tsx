@@ -5,7 +5,7 @@ import Home from '../components/Home'
 import AgovToken from '../abis/AgovToken.json'
 import TokenFarm from '../abis/TokenFarm.json'
 import abiArray from '../const/abiArray'
-import './App.css'
+import './App.scss'
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true)
@@ -119,7 +119,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <Navbar account={account} />
+      <Navbar address={account} />
       <div className="container-fluid mt-5">
         <div className="row">
           <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
