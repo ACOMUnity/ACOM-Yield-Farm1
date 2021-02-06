@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /// <reference types="react-scripts" />
+
+declare module '@metamask/jazzicon' {
+  export default function (diameter: number, seed: number): HTMLElement
+}
 interface Window {
   // ethereum?: {
   //   isMetaMask?: true

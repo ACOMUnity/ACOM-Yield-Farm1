@@ -1,13 +1,16 @@
 import React from 'react'
+import Identicon from '../Identicon'
+import { shortenAddress } from '../../helpers/utils'
 import farmer from '../../assets/farmer.png'
+import './index.scss'
 
 interface Props {
-  account: string
+  address: string
 }
 
-const Navbar: React.FC<Props> = ({ account }: Props) => {
+const Navbar: React.FC<Props> = ({ address }: Props) => {
   return (
-    <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow ">
+    <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a
         className="navbar-brand col-sm-3 col-md-2 mr-0 sextext addressBold"
         href="https://acom.uno/"
@@ -20,10 +23,10 @@ const Navbar: React.FC<Props> = ({ account }: Props) => {
 
       <ul className="navbar-nav px-3">
         <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-          <b className="addressBold">Address:&nbsp;</b>
-          <small className="text-secondary">
-            <small id="account">{account}</small>
-          </small>
+          <div className="address-hash">
+            {address !== '0x0' ? shortenAddress(address) : address}
+            {<Identicon address={address} />}
+          </div>
         </li>
       </ul>
     </nav>
