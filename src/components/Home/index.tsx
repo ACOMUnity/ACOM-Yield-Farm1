@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import farmer from '../../assets/farmer.png'
-
+import { getEthPriceNow } from 'get-eth-price'
 interface Props {
   acomTokenBalance: any
   agovTokenBalance: any
@@ -17,6 +17,15 @@ const Main: React.FC<Props> = ({
   unstakeTokens,
 }: Props) => {
   const [stakeAmount, setStakeAmount] = useState('')
+  const [ethPrice, setEthPrice] = useState('')
+  useEffect(() => {
+    getEthPriceNow().then((data: any) => {
+      if (data && Object.keys(data).length > 0) {
+        setEthPrice(data[Object.keys(data)[0]]['ETH']['USD'])
+      }
+    })
+  }, [])
+
   return (
     <div id="content" className="mt-3 text-center">
       <div id="theBigShow" className="lowerBold sextext theBigShow titleText">
@@ -116,11 +125,10 @@ const Main: React.FC<Props> = ({
           &nbsp;<br></br>
         </div>
       </div>
-      <div className="col">
-        <label className="lowerBold sextext">Ethereum Price in USD:</label>
-        <br></br>
+      <div className="lowerBold sextext">Ethereum Price in USD:</div>
+      <div>
         <span id="totalEthPrice" className="totalEthPrice">
-          &nbsp; Connecting to API
+          {ethPrice === '' ? `Connecting to API` : ethPrice}
         </span>
       </div>
     </div>

@@ -4,6 +4,9 @@
 declare module '@metamask/jazzicon' {
   export default function (diameter: number, seed: number): HTMLElement
 }
+declare module 'get-eth-price' {
+  export function getEthPriceNow(): Promise<any>
+}
 interface Window {
   // ethereum?: {
   //   isMetaMask?: true
