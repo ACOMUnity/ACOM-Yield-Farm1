@@ -19,7 +19,6 @@ const Main: React.FC<Props> = ({
   const [stakeAmount, setStakeAmount] = useState('')
   const [ethPrice, setEthPrice] = useState('')
   useEffect(() => {
-    console.log('getting eth price')
     getEthPriceNow().then((data: any) => {
       if (data && Object.keys(data).length > 0) {
         setEthPrice(data[Object.keys(data)[0]]['ETH']['USD'])
