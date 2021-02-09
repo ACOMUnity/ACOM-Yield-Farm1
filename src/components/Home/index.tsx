@@ -82,8 +82,8 @@ const Main: React.FC<Props> = ({
               />
               <div className="input-group-append">
                 <div className="input-group-text">
-                  <img src={farmer} height="32" alt="DAI Token" />
-                  &nbsp;&nbsp;&nbsp; ACOM
+                  <img className="mr-2" src={farmer} height="32" alt="DAI Token" />
+                  ACOM
                 </div>
               </div>
             </div>
