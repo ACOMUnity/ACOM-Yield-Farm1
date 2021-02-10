@@ -3,13 +3,16 @@ import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import logger from 'redux-logger'
 
+import application from './application'
+
 const persistConfig = {
   key: 'root',
   storage,
   whitelist: [],
 }
+
 const store: Store = configureStore({
-  reducer: persistReducer(persistConfig, combineReducers({})),
+  reducer: persistReducer(persistConfig, combineReducers({ application })),
   middleware: [...getDefaultMiddleware({ thunk: false, serializableCheck: false }), logger],
   devTools: process.env.NODE_ENV !== 'production',
 })
