@@ -1,0 +1,48 @@
+// Font variables: font family, size and weight
+@import 'fonts';
+
+// Color variables: color, gradient and box-shadow
+@import 'colors';
+
+// Theme configuration(variable, mixin and function)
+@import 'themes';
+
+// Other variables
+@import 'other';
+
+// Mixins for reusable styles
+@import 'mixins';
+
+// ### Global styles ###
+
+// body,
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// p,
+// span,
+// small,
+// section,
+// div,
+// button,
+// input {
+//   font-family: Poppins;
+// }
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: auto;
+
+  @include themed {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-origin: content-box;
+  }
+}

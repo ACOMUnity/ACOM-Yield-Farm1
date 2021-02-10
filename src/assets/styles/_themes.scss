@@ -1,0 +1,118 @@
+/**
+ * .theme--dark => Dark Mode
+ * .theme--light => Light Mode
+ **/
+
+$themes: (
+  dark: (
+    navLinkBackground: $gray-500,
+    navLinkColor: $gray-100,
+    navLinkBorder: $gray-400,
+    primaryButtonBackground: rgba($white, 0.1),
+    primaryButtonColor: $gray-100,
+    primaryButtonBorder: $gray-400,
+    primaryButtonHoverBorder: $blue,
+    secondaryButtonBackground: $blue,
+    secondaryButtonColor: $white,
+    secondaryButtonBorder: transparent,
+    secondaryButtonDisabledBack: rgba($white, 0.2),
+    secondaryButtonDisabledColor: $gray-300,
+    latticeTextColor: $gray-100,
+    pollingColor: $green,
+    panelBackground: rgba($white, 0.1),
+    panelBorder: $gray-400,
+    panelColor: $gray-100,
+    swapInputBackground: rgba($white, 0.1),
+    swapInputBorder: $gray-400,
+    swapInputColor: $gray-100,
+    swapInputPlaceholder: $gray-200,
+    activeButtonBackground: $blue,
+    activeButtonColor: $white,
+    tempColor: $gray-150,
+    linkColor: $blue,
+    spinnerColor: $blue,
+    errorColor: $red,
+    optionActiveBackground: $gray-400,
+    optionActiveColor: $white,
+    optionActiveCircle: $green,
+    errorBoxColor: $red-100,
+    textInputBackground: rgba($white, 0.1),
+    textInputColor: $gray-100,
+    textInputBorder: $gray-400,
+    textInputPlaceholder: $gray-200,
+    textInputHoverBorder: $blue,
+    searchModalBack: rgba($gray-600, 0.95),
+    searchModalDetail: $gray-200,
+    boldLabelColor: $white,
+    confirmPendingBorder: $blue,
+    confirmPendingColor: $white,
+    confirmPendingLabel: $gray-200,
+  ),
+  light: (
+    navLinkBackground: $gray-500,
+    navLinkColor: $gray-100,
+    navLinkBorder: $gray-400,
+    primaryButtonBackground: rgba($white, 0.1),
+    primaryButtonColor: $gray-100,
+    primaryButtonBorder: $gray-400,
+    primaryButtonHoverBorder: $blue,
+    secondaryButtonBackground: $blue,
+    secondaryButtonColor: $white,
+    secondaryButtonBorder: transparent,
+    secondaryButtonDisabledBack: rgba($white, 0.2),
+    secondaryButtonDisabledColor: $gray-300,
+    latticeTextColor: $gray-100,
+    pollingColor: $green,
+    panelBackground: rgba($blue-600, 1),
+    panelBorder: $gray-400,
+    panelColor: $gray-100,
+    panelOptionBorder: $yellow-600,
+    swapInputBackground: rgba($white, 0.1),
+    swapInputBorder: $gray-400,
+    swapInputColor: $gray-100,
+    swapInputPlaceholder: $gray-200,
+    activeButtonBackground: $blue,
+    activeButtonColor: $white,
+    tempColor: $gray-150,
+    linkColor: $blue,
+    spinnerColor: $blue,
+    errorColor: $red,
+    optionActiveBackground: $gray-400,
+    optionActiveColor: $white,
+    optionActiveCircle: $green,
+    errorBoxColor: $red-100,
+    textInputBackground: rgba($white, 0.1),
+    textInputColor: $gray-100,
+    textInputBorder: $gray-400,
+    textInputHoverBorder: $blue,
+    textInputPlaceholder: $gray-200,
+    searchModalBack: rgba($gray-600, 0.95),
+    boldLabelColor: $white,
+    confirmPendingBorder: $blue,
+    confirmPendingColor: $white,
+    confirmPendingLabel: $gray-200,
+  ),
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    :global(.theme--#{$theme}) & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}

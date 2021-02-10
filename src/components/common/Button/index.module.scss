@@ -1,0 +1,95 @@
+.button {
+  height: 36px;
+  padding: 8px 12px;
+  border: 1px solid;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  text-decoration: none;
+  cursor: pointer;
+  outline: 0px;
+  // transition: $transition;
+
+  &.rounded {
+    border-radius: 50%;
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &.primary {
+    @include themed {
+      background: t('primaryButtonBackground');
+      color: t('primaryButtonColor');
+      border-color: t('primaryButtonBorder');
+    }
+    & path {
+      @include themed {
+        fill: t('primaryButtonColor');
+      }
+    }
+    &:hover {
+      @include themed {
+        border-color: t('primaryButtonHoverBorder');
+      }
+    }
+    &.static:hover {
+      cursor: initial;
+
+      @include themed {
+        border-color: t('primaryButtonBorder');
+      }
+    }
+    &.active {
+      @include themed {
+        color: t('primaryButtonBorder');
+        background: t('primaryButtonColor');
+        border-color: t('primaryButtonColor');
+      }
+    }
+  }
+
+  &.secondary {
+    @include themed {
+      background: t('secondaryButtonBackground');
+      color: t('secondaryButtonColor');
+      border-color: t('secondaryButtonBorder');
+    }
+
+    &:hover {
+      @include themed {
+        background: rgba(t('secondaryButtonBackground'), 0.8);
+      }
+    }
+
+    & path {
+      @include themed {
+        fill: t('secondaryButtonColor');
+      }
+    }
+
+    &.static:hover {
+      cursor: initial;
+
+      @include themed {
+        background: t('secondaryButtonBackground');
+      }
+    }
+
+    &.disabled {
+      cursor: initial;
+
+      @include themed {
+        background: t('secondaryButtonDisabledBack');
+        color: t('secondaryButtonDisabledColor');
+      }
+    }
+  }
+}

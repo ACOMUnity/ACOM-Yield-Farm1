@@ -1,14 +1,19 @@
 import React from 'react'
+
 import Identicon from '../Identicon'
+import { useWalletModalToggle } from 'state/application/hooks'
 import { shortenAddress } from '../../helpers/utils'
 import farmer from '../../assets/farmer.png'
-import './index.scss'
+import styles from './index.module.scss'
+import WalletModal from 'components/WalletModal'
 
 interface Props {
-  address: string
+  account: string | null
 }
 
-const Navbar: React.FC<Props> = ({ address }: Props) => {
+const Navbar: React.FC<Props> = ({ account }: Props) => {
+  const toggleWalletModal = useWalletModalToggle()
+
   return (
     <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a
@@ -20,15 +25,23 @@ const Navbar: React.FC<Props> = ({ address }: Props) => {
         <img src={farmer} width="30" height="30" className="d-inline-block align-top" alt="" />
         &nbsp; ACOM Yield Farm <sub>1.0.0</sub>
       </a>
-
-      <ul className="navbar-nav px-3">
-        <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-          <div className="address-hash">
-            {address !== '0x0' ? shortenAddress(address) : address}
-            {<Identicon address={address} />}
+      <div className="d-flex mr-3">
+        {account && (
+          <div className={styles['address-hash']}>
+            {shortenAddress(account)}
+            <Identicon address={account} />
           </div>
-        </li>
-      </ul>
+        )}
+        {!account && (
+          <input
+            className={styles['connect-button']}
+            type="button"
+            value="Connect to a wallet"
+            onClick={toggleWalletModal}
+          />
+        )}
+      </div>
+      <WalletModal />
     </nav>
   )
 }

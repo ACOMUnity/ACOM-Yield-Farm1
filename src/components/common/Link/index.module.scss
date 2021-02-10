@@ -1,0 +1,15 @@
+a.link {
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  // transition: $transition;
+
+  @include themed {
+    color: t('linkColor');
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

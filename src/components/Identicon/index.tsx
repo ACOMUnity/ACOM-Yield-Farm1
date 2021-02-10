@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 
 import Jazzicon from '@metamask/jazzicon'
-import './index.scss'
+import styles from './index.module.scss'
 interface Props {
   address: string
 }
@@ -15,7 +15,7 @@ const Identicon: React.FC<Props> = ({ address }: Props) => {
     }
   }, [address])
 
-  return <div className="identicon-container" ref={ref as any} />
+  return <div className={styles['identicon-container']} ref={ref as any} />
 }
 
 export default Identicon

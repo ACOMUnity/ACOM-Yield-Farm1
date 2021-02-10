@@ -1,0 +1,133 @@
+.modal {
+  span.new {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    margin-right: 3px;
+    display: block;
+    margin-bottom: -8px;
+
+    .link {
+      margin-left: 5px;
+    }
+  }
+}
+
+.option {
+  width: 276px;
+  height: 48px;
+  justify-content: space-between;
+  padding-left: 24px;
+  padding-right: 12px;
+  background: transparent !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  margin-bottom: 12px;
+  position: relative;
+
+  &:hover {
+    @include themed {
+      border-color: t('panelOptionBorder') !important;
+    }
+  }
+  &.withSub {
+    height: 66px;
+  }
+
+  &.active {
+    @include themed {
+      background: t('optionActiveBackground') !important;
+      color: t('optionActiveColor') !important;
+      border-color: t('panelOptionBorder') !important;
+    }
+  }
+
+  .circle {
+    width: 6px;
+    height: 6px;
+    display: inline-block;
+    position: absolute;
+    left: 9px;
+    top: 21px;
+    border-radius: 50%;
+    @include themed {
+      background: t('optionActiveCircle');
+    }
+  }
+
+  &.static {
+    cursor: initial;
+  }
+
+  section.left,
+  section.right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  small.subheader {
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 20px;
+    white-space: nowrap;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 205px;
+  }
+
+  .icon {
+    width: 24px;
+  }
+}
+
+.pendingWrapper {
+  display: flex;
+  flex-direction: column;
+
+  & > .loading {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 0 24px;
+    font-size: 14px;
+    line-height: 21px;
+
+    @include themed {
+      color: t('primaryButtonColor');
+      border-color: t('primaryButtonBorder');
+    }
+
+    .error {
+      @include themed {
+        color: t('errorColor');
+      }
+    }
+
+    .retry {
+      font-size: 9px;
+      line-height: 12px;
+      width: 60px;
+      height: 20px;
+      padding: 0;
+      margin-left: 24px;
+      border-radius: 30px;
+    }
+
+    span.init {
+      margin-left: 8px;
+    }
+  }
+
+  & > .option {
+    margin-bottom: 0;
+  }
+}
