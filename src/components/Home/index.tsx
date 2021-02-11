@@ -18,6 +18,7 @@ const Main: React.FC<Props> = ({
 }: Props) => {
   const [stakeAmount, setStakeAmount] = useState('')
   const [ethPrice, setEthPrice] = useState('')
+  const [investData, setInvestData] = useState('Attempting to Load Investment Data')
   useEffect(() => {
     getEthPriceNow().then((data: any) => {
       if (data && Object.keys(data).length > 0) {
@@ -26,6 +27,14 @@ const Main: React.FC<Props> = ({
     })
   }, [])
 
+  useEffect(() => {
+    if (stakingBalance > 0) {
+      const dailyPay = window.web3?.utils?.fromWei(stakingBalance, 'Ether') * 0.00136986301
+      setInvestData(`Earning Roughly ${dailyPay} AGOV a Day Staking!`)
+    } else {
+      setInvestData('Not Earning AGOV! Please Stake Some mACOM!')
+    }
+  }, [stakingBalance])
   return (
     <div id="content" className="mt-3 text-center">
       <div id="theBigShow" className="lowerBold sextext theBigShow titleText">
@@ -112,7 +121,7 @@ const Main: React.FC<Props> = ({
           &nbsp;<br></br>
           &nbsp;<br></br>
           <span id="guesstimate" className="guesstimate">
-            Attempting to Load Investment Data
+            {investData}
           </span>
           <hr></hr>
           <span className="text-center text-muted">
