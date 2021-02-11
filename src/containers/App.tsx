@@ -88,7 +88,9 @@ const App: React.FC = () => {
                 .on('transactionHash', () => {
                   setLoading(false)
                 })
+                .on('error', () => setLoading(false))
             })
+            .on('error', () => setLoading(false))
         } else {
           tokenFarm.methods
             .stakeTokens(amount)
@@ -96,6 +98,7 @@ const App: React.FC = () => {
             .on('transactionHash', () => {
               setLoading(false)
             })
+            .on('error', () => setLoading(false))
         }
       })
   }

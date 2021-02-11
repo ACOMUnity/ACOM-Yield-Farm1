@@ -92,33 +92,5 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-  <script type="text/javascript">
-    var estimate = async (theBalance) => {
-      var updateamount = window.document.getElementById('fuckingStakingBalance')
-      updateamount = updateamount.innerText
-      var placeguess = window.document.getElementById('guesstimate')
-      var dailypay = 0
-      var priceUpdate = () => {
-        if (typeof theBalance !== undefined) {
-          dailypay = parseFloat(updateamount * 0.00136986301)
-          console.log(dailypay)
-        } else {
-          dailypay = parseFloat(updateamount * 0.00136986301)
-          console.log(dailypay)
-        }
-        if (dailypay > 0) {
-          placeguess.innerText = `Earning Roughly ${dailypay} AGOV a Day Staking!`
-          return (placeguess.value = `Earning Roughly ${dailypay} AGOV a Day Staking!`)
-        } else {
-          placeguess.innerText = `Not Earning AGOV! Please Stake Some mACOM!`
-          return (placeguess.value = `Not Earning AGOV! Please Stake Some mACOM!`)
-        }
-      }
-      await priceUpdate()
-    }
-
-    setTimeout(function () {
-      estimate()
-    }, 5000)
-  </script>
+  <script type="text/javascript"></script>
 </html>
