@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import cls from 'classnames'
 
 import Identicon from '../Identicon'
 import { useWalletModalToggle } from 'state/application/hooks'
-import { shortenAddress } from '../../helpers/utils'
+import { fromWei, getEthBalance, setPrecision, shortenAddress } from '../../helpers/utils'
 import farmer from '../../assets/farmer.png'
 import styles from './index.module.scss'
 import WalletModal from 'components/WalletModal'
@@ -13,7 +14,15 @@ interface Props {
 
 const Navbar: React.FC<Props> = ({ account }: Props) => {
   const toggleWalletModal = useWalletModalToggle()
-
+  const [ethBalance, setEthBalance] = useState('')
+  useEffect(() => {
+    if (account) {
+      getEthBalance(account, (balance: string) => {
+        console.log(balance)
+        setEthBalance(setPrecision(fromWei(balance), 4))
+      })
+    }
+  }, [account])
   return (
     <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a
@@ -25,12 +34,15 @@ const Navbar: React.FC<Props> = ({ account }: Props) => {
         <img src={farmer} width="30" height="30" className="d-inline-block align-top" alt="" />
         &nbsp; ACOM Yield Farm <sub>1.0.0</sub>
       </a>
-      <div className="d-flex mr-3">
+      <div className={cls('d-flex', 'mr-3', styles.container)}>
         {account && (
-          <div className={styles['address-hash']}>
-            {shortenAddress(account)}
-            <Identicon address={account} />
-          </div>
+          <>
+            {ethBalance} ETH
+            <div className={styles['address-hash']}>
+              {shortenAddress(account)}
+              <Identicon address={account} />
+            </div>
+          </>
         )}
         {!account && (
           <input

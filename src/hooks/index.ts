@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Web3 from 'web3'
 
 import { NetworkContextName } from 'constants/index'
 
@@ -20,6 +21,8 @@ export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> & 
 export function useEagerConnect() {
   const { activate, active } = useWeb3ReactCore() // specifically using useWeb3ReactCore because of what this hook does
   const [tried, setTried] = useState(false)
+
+  window.web3 = new Web3(Web3.givenProvider)
 
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized) => {

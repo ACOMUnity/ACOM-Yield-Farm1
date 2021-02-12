@@ -21,18 +21,6 @@ const App: React.FC = () => {
   const [agovTokenBalance, setAgovTokenBalance] = useState('0')
   const [stakingBalance, setStakingBalance] = useState('0')
 
-  const loadWeb3 = async (callback: any) => {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum as any)
-      await window.ethereum?.enable()
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    } else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-      callback(false)
-    }
-    callback(true)
-  }
   const loadBlockchainData = async () => {
     const web3 = new Web3(Web3.givenProvider)
     window.web3 = web3
@@ -112,10 +100,6 @@ const App: React.FC = () => {
         setLoading(false)
       })
   }
-
-  // useEffect(() => {
-  //   loadWeb3((status: boolean) => status && loadBlockchainData())
-  // }, [])
 
   useEffect(() => {
     if (account) {
