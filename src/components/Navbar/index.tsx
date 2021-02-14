@@ -37,7 +37,7 @@ const Navbar: React.FC<Props> = ({ account }: Props) => {
       <div className={cls('d-flex', 'mr-3', styles.container)}>
         {account && (
           <>
-            {ethBalance} ETH
+            <span>{ethBalance} ETH</span>
             <div className={styles['address-hash']}>
               {shortenAddress(account)}
               <Identicon address={account} />
