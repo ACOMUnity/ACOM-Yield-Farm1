@@ -1,52 +1,62 @@
 nav {
   height: 50px;
 }
-.container {
-  background-color: #e8cff1;
-  border-radius: 10px;
-  padding: 2px;
-  justify-content: center;
-  align-items: center;
-  span {
-    font-weight: 500;
-    padding: 0px 5px;
-  }
-  .address-hash {
+.right-panel {
+  .container {
     display: flex;
-    text-transform: none;
-    padding: 5px;
-    font-weight: 600;
-    background: #ffffff;
-    color: black;
-    font-size: 1em;
+    margin-right: 16px;
+    background-color: #e8cff1;
     border-radius: 10px;
-    user-select: none;
-    &:hover {
-      background: rgb(225, 225, 225);
-    }
-  }
-  .connect-button {
-    text-align: center;
-    outline: none;
-    text-decoration: none;
-    -webkit-box-pack: center;
+    padding: 2px;
     justify-content: center;
-    position: relative;
-    z-index: 1;
-    font-size: 1em;
-
-    display: flex;
-    flex-flow: row nowrap;
-    width: 100%;
-    -webkit-box-align: center;
     align-items: center;
-    padding: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-    user-select: none;
-    font-weight: 500;
-    background-color: rgb(253, 234, 241);
-    border: 1px solid rgb(253, 234, 241);
-    color: #ff278e;
+
+    &.acom-balance {
+      background-image: linear-gradient(135deg, #005ec7, #86d8fc);
+      color: #fff;
+    }
+
+    span {
+      font-weight: 500;
+      padding: 0px 5px;
+    }
+    .address-hash {
+      display: flex;
+      text-transform: none;
+      padding: 5px;
+      font-weight: 600;
+      background: #ffffff;
+      color: black;
+      font-size: 1em;
+      border-radius: 10px;
+      user-select: none;
+      &:hover {
+        background: rgb(225, 225, 225);
+      }
+    }
+    .connect-button {
+      text-align: center;
+      outline: none;
+      text-decoration: none;
+      -webkit-box-pack: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      font-size: 1em;
+
+      display: flex;
+      flex-flow: row nowrap;
+      width: 100%;
+      -webkit-box-align: center;
+      align-items: center;
+      padding: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 500;
+      background-color: rgb(253, 234, 241);
+      border: 1px solid rgb(253, 234, 241);
+      color: #ff278e;
+    }
   }
 }
