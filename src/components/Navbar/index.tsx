@@ -10,11 +10,13 @@ import WalletModal from 'components/WalletModal'
 
 interface Props {
   account: string | null
+  acomTokenBalance: any
 }
 
-const Navbar: React.FC<Props> = ({ account }: Props) => {
+const Navbar: React.FC<Props> = ({ account, acomTokenBalance }: Props) => {
   const toggleWalletModal = useWalletModalToggle()
   const [ethBalance, setEthBalance] = useState('')
+  console.log('acomTokenBalance', acomTokenBalance)
   useEffect(() => {
     if (account) {
       getEthBalance(account, (balance: string) => {
@@ -34,24 +36,29 @@ const Navbar: React.FC<Props> = ({ account }: Props) => {
         <img src={farmer} width="30" height="30" className="d-inline-block align-top" alt="" />
         &nbsp; ACOM Yield Farm <sub>1.0.0</sub>
       </a>
-      <div className={cls('d-flex', 'mr-3', styles.container)}>
-        {account && (
-          <>
-            <span>{ethBalance} ETH</span>
-            <div className={styles['address-hash']}>
-              {shortenAddress(account)}
-              <Identicon address={account} />
-            </div>
-          </>
-        )}
-        {!account && (
-          <input
-            className={styles['connect-button']}
-            type="button"
-            value="Connect to a wallet"
-            onClick={toggleWalletModal}
-          />
-        )}
+      <div className={cls('d-flex', styles['right-panel'])}>
+        <div className={cls(styles.container, styles['acom-balance'])}>
+          <span>{acomTokenBalance > 0 ? window.web3?.utils?.fromWei(acomTokenBalance, 'Ether') : ''} ACOM</span>
+        </div>
+        <div className={styles.container}>
+          {account && (
+            <>
+              <span>{ethBalance} ETH</span>
+              <div className={styles['address-hash']}>
+                {shortenAddress(account)}
+                <Identicon address={account} />
+              </div>
+            </>
+          )}
+          {!account && (
+            <input
+              className={styles['connect-button']}
+              type="button"
+              value="Connect to a wallet"
+              onClick={toggleWalletModal}
+            />
+          )}
+        </div>
       </div>
       <WalletModal />
     </nav>

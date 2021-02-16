@@ -40,30 +40,11 @@ const Main: React.FC<Props> = ({
       <div id="theBigShow" className="lowerBold sextext theBigShow titleText">
         Welcome to the ACOM Yield Farm
       </div>
-      <br></br>
-      <div className="card mb-4">
+      <div className="card mb-4 mt-4">
         <div className="card-body">
-          <span className="underTitle">You Current ACOM Community Token Balances:</span>
-          <br></br>
-          <table className="table table-borderless text-muted text-center">
-            <thead></thead>
-            <tbody>
-              <tr>
-                <td
-                  className=""
-                  onClick={() => {
-                    setStakeAmount(window.web3?.utils?.fromWei(acomTokenBalance, 'Ether') || '')
-                    // const updateamount: HTMLInputElement = window.document.getElementById('numberInputter')
-                    // updateamount.innerText = stakeAmount
-                    // updateamount.value = stakeAmount
-                  }}
-                >
-                  {window.web3?.utils?.fromWei(acomTokenBalance, 'Ether')} ACOM
-                </td>
-                <td className="">{window.web3?.utils?.fromWei(agovTokenBalance, 'Ether')} AGOV</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="underTitle mb-3">
+            You Current AGOV Balances: {window.web3?.utils?.fromWei(agovTokenBalance, 'Ether')} AGOV{' '}
+          </div>
           <form
             className="mb-3"
             onSubmit={(event) => {
@@ -113,25 +94,20 @@ const Main: React.FC<Props> = ({
           >
             WITHDRAW
           </button>
-          <br></br>
-          <span className="text-center">
+          <p className="text-center mt-3 mb-3">
             You Have <span id="fuckingStakingBalance">{window.web3?.utils?.fromWei(stakingBalance, 'Ether')} </span>{' '}
             ACOM Staking!
-          </span>
-          &nbsp;<br></br>
-          &nbsp;<br></br>
-          <span id="guesstimate" className="guesstimate">
+          </p>
+          <p id="guesstimate" className="guesstimate">
             {investData}
-          </span>
+          </p>
           <hr></hr>
-          <span className="text-center text-muted">
+          <span className="text-center text-muted mb-4">
             A limited 1,000,000 AGOV will be distributed to community members staking their ACOM for a minimum of 6
             months timelock between being able to withdraw them. Your initial ACOM investment will be retained and
             you&apos;ll earn AGOV community governance tokens at a rate of roughly 0.00136986301 AGOV per day per ACOM
             staking estimated to remain staking over the next 2 years of distribution before supply runs out.
           </span>
-          &nbsp;<br></br>
-          &nbsp;<br></br>
         </div>
       </div>
       <div className="lowerBold sextext">Ethereum Price in USD:</div>

@@ -11,8 +11,6 @@ import { fortmatic, injected, portis } from 'connectors/index'
 import { OVERLAY_READY } from 'connectors/Fortmatic'
 import { useModalOpen, useWalletModalToggle } from 'state/application/hooks'
 import { ApplicationModal } from 'state/application/types'
-import { ReactComponent as WalletIcon } from 'assets/images/svgs/wallet.svg'
-import { ReactComponent as LeftArrowIcon } from 'assets/images/svgs/left-arrow.svg'
 import usePrevious from 'hooks/usePrevious'
 import MetamaskIcon from 'assets/images/wallets/metamask.png'
 
@@ -21,12 +19,7 @@ import { WALLET_VIEWS } from './consts'
 import styles from './index.module.scss'
 import PendingView from './PendingView'
 
-interface IWalletModal {
-  pending?: string[]
-  confirmed?: string[]
-}
-
-const WalletModal: FC<IWalletModal> = ({ pending, confirmed }: IWalletModal) => {
+const WalletModal: FC = () => {
   const { active, account, connector, activate, error } = useWeb3React()
   const walletModalOpen = useModalOpen(ApplicationModal.WALLET)
   const toggleWalletModal = useWalletModalToggle()
