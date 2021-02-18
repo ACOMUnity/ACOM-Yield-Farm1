@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import cls from 'classnames'
 import farmer from '../../assets/farmer.png'
 import { getEthPriceNow } from 'get-eth-price'
+import { ReactComponent as InfoIcon } from 'assets/images/svgs/info.svg'
+import styles from './index.module.scss'
+import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 interface Props {
   acomTokenBalance: any
   agovTokenBalance: any
@@ -19,6 +23,15 @@ const Main: React.FC<Props> = ({
   const [stakeAmount, setStakeAmount] = useState('')
   const [ethPrice, setEthPrice] = useState('')
   const [investData, setInvestData] = useState('Attempting to Load Investment Data')
+
+  const tooltip = (
+    <Tooltip id="info-tooltip">
+      A limited 1,000,000 AGOV will be distributed to community members staking their ACOM for a minimum of 6 months
+      timelock between being able to withdraw them. Your initial ACOM investment will be retained and you&apos;ll earn
+      AGOV community governance tokens at a rate of roughly 0.00136986301 AGOV per day per ACOM staking estimated to
+      remain staking over the next 2 years of distribution before supply runs out.
+    </Tooltip>
+  )
   useEffect(() => {
     getEthPriceNow().then((data: any) => {
       if (data && Object.keys(data).length > 0) {
@@ -98,16 +111,12 @@ const Main: React.FC<Props> = ({
             You Have <span id="fuckingStakingBalance">{window.web3?.utils?.fromWei(stakingBalance, 'Ether')} </span>{' '}
             ACOM Staking!
           </p>
-          <p id="guesstimate" className="guesstimate">
+          <p className={cls(styles['info-icon'], 'mb-0')}>
             {investData}
+            <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 250 }} overlay={tooltip}>
+              <InfoIcon></InfoIcon>
+            </OverlayTrigger>
           </p>
-          <hr></hr>
-          <span className="text-center text-muted mb-4">
-            A limited 1,000,000 AGOV will be distributed to community members staking their ACOM for a minimum of 6
-            months timelock between being able to withdraw them. Your initial ACOM investment will be retained and
-            you&apos;ll earn AGOV community governance tokens at a rate of roughly 0.00136986301 AGOV per day per ACOM
-            staking estimated to remain staking over the next 2 years of distribution before supply runs out.
-          </span>
         </div>
       </div>
       <div className="lowerBold sextext">Ethereum Price in USD:</div>
