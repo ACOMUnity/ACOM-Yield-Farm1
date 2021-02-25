@@ -25,7 +25,6 @@ const App: React.FC = () => {
   const [stakingBalance, setStakingBalance] = useState('0')
 
   const loadBlockchainData = async () => {
-    setLoading(true)
     const web3 = new Web3(Web3.givenProvider)
     window.web3 = web3
     const tempAcomToken = await new web3.eth.Contract(abiArray as any, '0x643fd19acBb31E5247EF652e15368f744e2a265a')
