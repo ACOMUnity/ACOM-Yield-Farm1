@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Web3 from 'web3'
 import { useWeb3React } from '@web3-react/core'
+import { Toast, ToastHeader, ToastBody } from 'react-bootstrap'
 import { useEagerConnect } from 'hooks'
 import Navbar from 'components/Navbar'
 import Home from 'components/Home'
@@ -13,6 +14,8 @@ const App: React.FC = () => {
   const { account } = useWeb3React()
   const triedEager = useEagerConnect()
   const [loading, setLoading] = useState(account !== undefined && account !== null ? true : false)
+  const [toastStatus, setToastStatus] = useState(false)
+  const [toastMsg, setToastMsg] = useState('')
   const [acomToken, setAcomToken] = useState<any>({})
   const [agovToken, setAgovToken] = useState<any>({})
   const [tokenFarm, setTokenFarm] = useState<any>({})
@@ -22,6 +25,7 @@ const App: React.FC = () => {
   const [stakingBalance, setStakingBalance] = useState('0')
 
   const loadBlockchainData = async () => {
+    setLoading(true)
     const web3 = new Web3(Web3.givenProvider)
     window.web3 = web3
     const tempAcomToken = await new web3.eth.Contract(abiArray as any, '0x643fd19acBb31E5247EF652e15368f744e2a265a')
@@ -56,8 +60,8 @@ const App: React.FC = () => {
   }
 
   const stakeTokens = (amount: string) => {
-    // this.setState({ loading: true })
-    setLoading(true)
+    setToastStatus(true)
+    setToastMsg('Waiting for your confirmation')
 
     acomToken.methods
       .allowance('0x07b37E682B100208C6288F2F121298A4D60D103c', '0x9f82facd0de79b44af2e5a18f105f6285ce6a681')
@@ -74,11 +78,18 @@ const App: React.FC = () => {
                 .stakeTokens(amount)
                 .send({ from: account })
                 .on('transactionHash', () => {
-                  setLoading(false)
+                  setToastMsg('Transaction Confirmed')
+                  setToastStatus(true)
                 })
-                .on('error', () => setLoading(false))
+                .on('error', () => {
+                  setToastMsg('Transaction Failed')
+                  setToastStatus(true)
+                })
             })
-            .on('error', () => setLoading(false))
+            .on('error', () => {
+              setToastMsg('Transaction Failed')
+              setToastStatus(true)
+            })
         } else {
           tokenFarm.methods
             .stakeTokens(amount)
@@ -130,6 +141,15 @@ const App: React.FC = () => {
             </div>
           </main>
         </div>
+      </div>
+      <div style={{ position: 'absolute', right: 2, bottom: 5 }}>
+        <Toast onClose={() => setToastStatus(false)} show={toastStatus} delay={3000} autohide>
+          <Toast.Header>
+            <strong className="mr-auto">ACOM Notification</strong>
+            {/* <small>11 mins ago</small> */}
+          </Toast.Header>
+          <Toast.Body>{toastMsg}</Toast.Body>
+        </Toast>
       </div>
     </div>
   )
