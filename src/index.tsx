@@ -10,6 +10,7 @@ import getLibrary from 'helpers/getLibrary'
 import store, { persistor } from 'state/store'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'index.css'
+import 'react-toastify/dist/ReactToastify.css'
 import App from 'containers/App'
 import reportWebVitals from 'reportWebVitals'
 
