@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Web3 from 'web3'
 import { useWeb3React } from '@web3-react/core'
+import { ToastContainer, toast } from 'react-toastify'
 import { useEagerConnect } from 'hooks'
 import Navbar from 'components/Navbar'
 import Home from 'components/Home'
@@ -13,6 +14,8 @@ const App: React.FC = () => {
   const { account } = useWeb3React()
   const triedEager = useEagerConnect()
   const [loading, setLoading] = useState(account !== undefined && account !== null ? true : false)
+  const [toastStatus, setToastStatus] = useState(false)
+  const [toastMsg, setToastMsg] = useState('')
   const [acomToken, setAcomToken] = useState<any>({})
   const [agovToken, setAgovToken] = useState<any>({})
   const [tokenFarm, setTokenFarm] = useState<any>({})
@@ -20,6 +23,9 @@ const App: React.FC = () => {
   const [acomTokenBalance, setAcomTokenBalance] = useState('0')
   const [agovTokenBalance, setAgovTokenBalance] = useState('0')
   const [stakingBalance, setStakingBalance] = useState('0')
+
+  const toastSuccess = () => toast.success('Transaction Success!')
+  const toastFailed = (err: any) => toast.error(err?.message || 'Transaction Failed!')
 
   const loadBlockchainData = async () => {
     const web3 = new Web3(Web3.givenProvider)
@@ -56,8 +62,8 @@ const App: React.FC = () => {
   }
 
   const stakeTokens = (amount: string) => {
-    // this.setState({ loading: true })
-    setLoading(true)
+    setToastStatus(true)
+    setToastMsg('Waiting for your confirmation')
 
     acomToken.methods
       .allowance('0x07b37E682B100208C6288F2F121298A4D60D103c', '0x9f82facd0de79b44af2e5a18f105f6285ce6a681')
@@ -70,35 +76,32 @@ const App: React.FC = () => {
             .approve(tokenFarm._address, amount)
             .send({ from: account })
             .on('transactionHash', () => {
+              toastSuccess()
               tokenFarm.methods
                 .stakeTokens(amount)
                 .send({ from: account })
                 .on('transactionHash', () => {
-                  setLoading(false)
+                  toastSuccess()
                 })
-                .on('error', () => setLoading(false))
+                .on('error', (err: any) => toastFailed(err))
             })
-            .on('error', () => setLoading(false))
+            .on('error', (err: any) => toastFailed(err))
         } else {
           tokenFarm.methods
             .stakeTokens(amount)
             .send({ from: account })
-            .on('transactionHash', () => {
-              setLoading(false)
-            })
-            .on('error', () => setLoading(false))
+            .on('transactionHash', () => toastSuccess())
+            .on('error', (err: any) => toastFailed(err))
         }
       })
   }
 
   const unstakeTokens = () => {
-    setLoading(true)
     tokenFarm.methods
       .unstakeTokens()
       .send({ from: account })
-      .on('transactionHash', () => {
-        setLoading(false)
-      })
+      .on('transactionHash', () => toastSuccess)
+      .on('error', (err: any) => toastFailed(err))
   }
 
   useEffect(() => {
@@ -131,6 +134,7 @@ const App: React.FC = () => {
           </main>
         </div>
       </div>
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   )
 }

@@ -90,7 +90,10 @@ const Main: React.FC<Props> = ({
                 </div>
               </div>
             </div>
-            <button type="submit" className="btn btn-primary btn-block btn-lg sextext">
+            <button
+              type="submit"
+              className={cls(styles['gradient-button'], 'btn', 'btn-primary', 'btn-block', 'btn-lg', 'sextext')}
+            >
               DEPOSIT
             </button>
           </form>
@@ -98,7 +101,7 @@ const Main: React.FC<Props> = ({
             //DISABLE LINE BELLOW TO RE-ENABLE THE WITHDRAWALS
             disabled //Remove this after enabling withdrawals
             type="submit"
-            className="btn btn-primary btn-block btn-lg sextext"
+            className={cls(styles['gradient-button'], 'btn', 'btn-primary', 'btn-block', 'btn-lg', 'sextext')}
             id="withdrawButton"
             onClick={(event) => {
               event.preventDefault()
